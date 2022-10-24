@@ -10,9 +10,11 @@ class DosenController extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('session');
         $this->load->model("Dosen");
+        $this->load->model("Penilaian");
         $this->load->model("User");
         $this->load->model("TugasAkhir");
         $this->load->model("Seminar");
+        $this->load->model("SeminarKP");
         $this->load->model("Sidang");
         $this->load->model("Mahasiswa");
         $this->load->model("KP");
@@ -250,6 +252,121 @@ class DosenController extends CI_Controller
                 $data['kode'] = $id;
 
                 $this->load->view('Admin/adminDosenDetailView', $data);
+            }
+        }
+    }
+
+    public function showHome()
+    {
+        if (isset($this->session->userdata['logged_in'])) {
+            if ($this->session->userdata['role'] == 'dosen') {
+                //get username dosen
+                $idDosen = $this->session->userdata['username'];
+                //get data TA
+                $listTA = $this->TugasAkhir->getDataByDosen($idDosen);
+                $data['list'] = '';
+                $data['listKP'] = '';
+                $data['listseminarKP'] = '';
+                $data['listseminarta'] = '';
+                $data['listMagang'] = '';
+                $data['listsidang'] = '';
+                if ($listTA != null) {
+                    foreach ($listTA as $item) {
+                        $mahasiswa = $this->Mahasiswa->getDataByID($item->NIM);
+                        if ($mahasiswa != null) {
+                            $item->Nama = $mahasiswa->Nama;
+                            $item->Foto = $mahasiswa->Foto;
+                            $item->Status = $mahasiswa->Status;
+                        }
+                    }
+
+                    $data['list'] = $listTA;
+                }
+                $listKP = $this->KP->getDataByDosen($idDosen);
+                if ($listKP != null) {
+                    foreach ($listKP as $item) {
+                        $mahasiswa = $this->Mahasiswa->getDataByID($item->NIM);
+                        if ($mahasiswa != null) {
+                            $item->Nama = $mahasiswa->Nama;
+                            $item->Foto = $mahasiswa->Foto;
+                        }
+                    }
+
+                    $data['listKP'] = $listKP;
+                }
+                $listMagang = $this->Magang->getDataByDosen($idDosen);
+                if ($listMagang != null) {
+                    foreach ($listMagang as $item) {
+                        $mahasiswa = $this->Mahasiswa->getDataByID($item->NIM);
+                        if ($mahasiswa != null) {
+                            $item->Nama = $mahasiswa->Nama;
+                            $item->Foto = $mahasiswa->Foto;
+                            $item->StatusMagang = $mahasiswa->StatusMagang;
+                        }
+                    }
+
+                    $data['listMagang'] = $listMagang;
+                }
+                //get data Seminar KP
+                $listSeminarKP = $this->SeminarKP->getAllApproved();
+                if ($listSeminarKP != null) {
+                    foreach ($listSeminarKP as $item) {
+                        //mahasiswa
+                        $mahasiswa = $this->Mahasiswa->getDataByID($item->NIM);
+                        if ($mahasiswa != null) {
+                            $item->Nama = $mahasiswa->Nama;
+                            $item->Foto = $mahasiswa->Foto;
+                        }
+                        //ambil data tugas akhir
+                        $KP = $this->KP->getDataByNIM($item->NIM);
+                        if ($KP != null) {
+                            $item->DosenPembimbing = $KP->DosenPembimbing;
+                            $item->Judul = $KP->Judul;
+                        }
+                    }
+
+                    $data['listseminarKP'] = $listSeminarKP;
+                    $data['iddosen'] = $idDosen;
+                }
+                $listSeminar = $this->Seminar->getDataByDosen($idDosen);
+                if ($listSeminar != null) {
+                    foreach ($listSeminar as $item) {
+                        //mahasiswa
+                        $mahasiswa = $this->Mahasiswa->getDataByID($item->NIM);
+                        if ($mahasiswa != null) {
+                            $item->Nama = $mahasiswa->Nama;
+                            $item->Foto = $mahasiswa->Foto;
+                        }
+                        //ambil data tugas akhir
+                        $tugasAkhir = $this->TugasAkhir->getDataByNIM($item->NIM);
+                        if ($tugasAkhir != null) {
+                            $item->Judul = $tugasAkhir->Judul;
+                        }
+                    }
+                    $listSidang = $this->Sidang->getDataByDosen($idDosen);
+
+                    if ($listSidang != null) {
+                        $list = [];
+                        foreach ($listSidang as $item) {
+                            //mahasiswa
+                            $mahasiswa = $this->Mahasiswa->getDataByID($item->NIM);
+                            if ($mahasiswa != null) {
+                                $item->Nama = $mahasiswa->Nama;
+                                $item->Foto = $mahasiswa->Foto;
+                            }
+                            //ambil data tugas akhir
+                            $tugasAkhir = $this->TugasAkhir->getDataByNIM($item->NIM);
+                            if ($tugasAkhir != null) {
+                                $item->Judul = $tugasAkhir->Judul;
+                                array_push($list, $item);
+                            }
+                        }
+
+                        $data['listsidang'] = $list;
+                    }
+                    $data['listseminarta'] = $listSeminar;
+                }
+                $this->load->view('Dosen/Home', $data);
             }
         }
     }

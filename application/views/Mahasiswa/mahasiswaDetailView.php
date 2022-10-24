@@ -116,7 +116,7 @@
 														<tr>
 															<!-- <td>No</td> -->
 															<td>
-																<center><strong>Informasi KP</strong></center>
+																<center><strong>Informasi TA</strong></center>
 
 															</td>
 														</tr>

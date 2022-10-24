@@ -165,7 +165,10 @@
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $('#Seminar_data').DataTable();
+      $('#Seminar_data').DataTable({
+        scrollX: true
+
+      });
     });
   </script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->

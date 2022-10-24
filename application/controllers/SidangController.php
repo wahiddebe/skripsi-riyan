@@ -333,6 +333,7 @@ class SidangController extends CI_Controller
                 $data = [];
                 //get data TA
                 $listSidang = $this->Sidang->getDataByDosen($idDosen);
+
                 if ($listSidang != null) {
                     $list = [];
                     foreach ($listSidang as $item) {

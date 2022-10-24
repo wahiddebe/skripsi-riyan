@@ -138,7 +138,7 @@ class UserController extends CI_Controller
 		} else if ($role == 'TU') {
 			redirect('TU');
 		} else if ($role == 'dosen') {
-			redirect('Dosen/BimbinganTA');
+			redirect('Dosen/Home');
 		}
 	}
 

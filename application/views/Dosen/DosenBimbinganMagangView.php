@@ -85,6 +85,7 @@
 																	} else {
 																		echo "-";
 																	}
+																	echo "	</td>";
 																	echo "	<td>";
 																	echo $magang->Nama_Perusahaan;
 																	echo "	</td>";

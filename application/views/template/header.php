@@ -85,7 +85,7 @@
             echo "<div class='main_nav_sub'>";
             echo "<a href='" . base_url() . "Dosen/jadwalSeminarTA" . "'>Seminar TA</a>";
             echo "<a href='" . base_url() . "Dosen/jadwalSidangTA" . "'>Sidang TA</a>";
-            // echo "<a href='".base_url()."form/formPeminjamanAlat"."'>Seminar</a>";
+            echo "<a href='" . base_url() . "Dosen/jadwalSeminarKP" . "'>Seminar KP</a>";
             echo "</div>";
             echo "</li>";
             echo "<li class='main_nav_item'><a href='" . base_url() . "ubahPassword" . "'>Ubah Password</a></li>";

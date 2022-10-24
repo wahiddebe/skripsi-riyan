@@ -259,11 +259,13 @@ $route['TU/hapusSeminarKP']['post'] = 'SeminarKPController/hapusSeminarKP';
 $route['admin/import']['import'] = 'Excel_importController/import';
 
 //ul untuk akun dosen
+$route['Dosen/Home'] = 'DosenController/showHome';
 $route['Dosen/BimbinganTA'] = 'TugasAkhirController/showBimbinganTA';
 $route['Dosen/BimbinganMagang'] = 'MagangController/showBimbinganMagang';
 $route['Dosen/BimbinganKP'] = 'KPController/showBimbinganKP';
 $route['Dosen/jadwalSidangTA'] = 'SidangController/ShowJadwalSidangTA';
 $route['Dosen/jadwalSeminarTA'] = 'SeminarController/ShowJadwalSeminarTA';
+$route['Dosen/jadwalSeminarKP'] = 'SeminarKPController/ShowJadwalSeminarKP';
 
 //
 

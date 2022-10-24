@@ -71,8 +71,15 @@
 																<td>Jam</td>
 																<td>Lokasi</td>
 																<td>Draft</td>
-																<td>Penilian</td>
-																<td>Form Penilaian</td>
+																<?php
+																if ($event != 'Seminar') {
+
+																?>
+																	<td>Penilaian</td>
+																	<td>Form Penilaian</td>
+																<?php } else {
+																}
+																?>
 															</tr>
 														</thead>
 														<tbody>
@@ -105,26 +112,38 @@
 																	echo $jadwal->Lokasi;
 																	echo "	</td>";
 																	echo "	<td>";
-																	if ($jadwal->Draft != '') {
-																		echo "<a target='_blank' href='" . base_url() . $jadwal->Draft . "'> Draft.pdf</a>";
+																	if ($event == 'Seminar') {
+																		if ($jadwal->LembarDraft != '') {
+																			echo "<a target='_blank' href='" . base_url() . $jadwal->LembarDraft . "'> Draft.pdf</a>";
+																		} else {
+																			echo "-";
+																		}
 																	} else {
-																		echo "-";
+																		if ($jadwal->Draft != '') {
+																			echo "<a target='_blank' href='" . base_url() . $jadwal->Draft . "'> Draft.pdf</a>";
+																		} else {
+																			echo "-";
+																		}
 																	}
+
 																	echo "	</td>";
-																	echo "	<td>";
-																	if ($this->Penilaian->getDataBySidang($jadwal->IdSidang) != null) {
-																		echo "<a target='_blank' href='" . base_url() . "/Dosen/showPenilaian/" . $jadwal->IdSidang . "'> Penilaian.pdf</a>";
-																	} else {
-																		echo "-";
-																	}
-																	echo "	</td>";
-																	echo "  <td>";
-																	echo "    <button type='button' class='btn btn-primary' 
+																	if ($event != 'Seminar') {
+																		echo "	<td>";
+																		if ($this->Penilaian->getDataBySidang($jadwal->IdSidang) != null) {
+																			echo "<a target='_blank' href='" . base_url() . "/Dosen/showPenilaian/" . $jadwal->IdSidang . "'> Penilaian.pdf</a>";
+																		} else {
+																			echo "-";
+																		}
+																		echo "	</td>";
+																		echo "  <td>";
+																		echo "    <button type='button' class='btn btn-primary' 
 																						data-toggle='modal' data-target='#myModal' 
 																						data-form='/Dosen/getPenilaian/" . $jadwal->IdSidang . "'>
 																						Penilaian
 																						</button>";
-																	echo "  </td>";
+																		echo "  </td>";
+																	}
+
 																	echo "</tr>";
 																}
 															} else {

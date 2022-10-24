@@ -37,7 +37,7 @@ class Sidang extends CI_Model
     {
       $this->db->select('*');
       $this->db->from('sidang');
-      $this->db->where('TanggalSidang >',date("d/m/Y"));
+      $this->db->where('TanggalSidang >=',date("d/m/Y"));
       $where = "(DosenPengunji1=".$ID." OR DosenPenguji2=".$ID.")";
       $this->db->order_by('TanggalSidang','asc');
  
@@ -71,5 +71,3 @@ class Sidang extends CI_Model
       return $query->result();
     }
 }
-
-?>

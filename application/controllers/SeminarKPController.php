@@ -250,15 +250,15 @@ class SeminarKPController extends CI_Controller
         }
     }
 
-    public function showJadwalSeminarKPTA()
+    public function showJadwalSeminarKP()
     {
         if (isset($this->session->userdata['logged_in'])) {
             if ($this->session->userdata['role'] == 'dosen') {
                 //get username dosen
                 $idDosen = $this->session->userdata['username'];
                 $data = [];
-                //get data TA
-                $listSeminarKP = $this->SeminarKP->getDataByDosen($idDosen);
+                //get data Seminar KP
+                $listSeminarKP = $this->SeminarKP->getAllApproved();
                 if ($listSeminarKP != null) {
                     foreach ($listSeminarKP as $item) {
                         //mahasiswa
@@ -268,17 +268,19 @@ class SeminarKPController extends CI_Controller
                             $item->Foto = $mahasiswa->Foto;
                         }
                         //ambil data tugas akhir
-                        $tugasAkhir = $this->TugasAkhir->getDataByNIM($item->NIM);
-                        if ($tugasAkhir != null) {
-                            $item->Judul = $tugasAkhir->Judul;
+                        $KP = $this->KP->getDataByNIM($item->NIM);
+                        if ($KP != null) {
+                            $item->DosenPembimbing = $KP->DosenPembimbing;
+                            $item->Judul = $KP->Judul;
                         }
                     }
 
                     $data['list'] = $listSeminarKP;
+                    $data['iddosen'] = $idDosen;
                 }
 
                 $data['event'] = 'SeminarKP';
-                $this->load->view('Dosen/DosenJadwalView', $data);
+                $this->load->view('Dosen/DosenJadwalKPView', $data);
             }
         }
     }

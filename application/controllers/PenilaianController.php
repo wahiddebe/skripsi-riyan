@@ -81,8 +81,53 @@ class PenilaianController extends CI_Controller
 
   public function showPenilaian()
   {
+    $IdSidang =
+      (int)$this->uri->segment('3');
+    $sidang = $this->Sidang->getDataById($IdSidang);
+    $IdTA = $sidang->IdTA;
+    $TA = $this->TugasAkhir->getDataById($IdTA);
+    $mahasiswa = $this->Mahasiswa->getDataByID($TA->NIM);
+    $penilaian = $this->Penilaian->getDataBySidang($IdSidang);
+    $dosen = $this->Dosen->getDataBy($penilaian->Penguji);
+
+    $data['NIM'] = $sidang->NIM;
+    $data['Judul'] = $TA->Judul;
+    $data['Nama'] = $mahasiswa->Nama;
+    $data['Penguji'] = $dosen->Nama;
+    $data['NIP'] = $dosen->NIP;
+    $data['Status'] = $penilaian->Status;
+    $data['Nilai'] = $penilaian->Nilai;
+    $data['TTD'] = $penilaian->TTD;
+    $tanggalsidang = $this->tgl_indo($sidang->TanggalSidang);
+    $data['TanggalSidang'] = $tanggalsidang;
     $this->load->library('pdf');
-    $html = $this->load->view('GeneratePdfView', [], true);
+    $html = $this->load->view('GeneratePdfView', $data, true);
     $this->pdf->createPDF($html, 'mypdf', false);
+  }
+
+  function tgl_indo($tanggal)
+  {
+    $bulan = array(
+      1 =>   'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember'
+    );
+    $pecahkan = explode('/', $tanggal);
+
+    // variabel pecahkan 0 = tanggal
+    // variabel pecahkan 1 = bulan
+    // variabel pecahkan 2 = tahun
+
+    return $pecahkan[0] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' .
+      $pecahkan[2];
   }
 }
