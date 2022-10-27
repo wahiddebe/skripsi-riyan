@@ -1,0 +1,4 @@
+[20-Nov-2016 12:42:32 Asia/Jakarta] PHP Warning:  require_once(/home/box/plbtw-buku.box.lapakserver.com/system/system/core/CodeIgniter.php): failed to open stream: No such file or directory in /home/box/plbtw-buku.box.lapakserver.com/index.php on line 315
+[20-Nov-2016 12:42:32 Asia/Jakarta] PHP Fatal error:  require_once(): Failed opening required '/home/box/plbtw-buku.box.lapakserver.com/system/system/core/CodeIgniter.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/box/plbtw-buku.box.lapakserver.com/index.php on line 315
+[29-Nov-2016 11:30:54 Asia/Jakarta] PHP Fatal error:  Call to a member function checkApiKey() on null in /home/box/plbtw-buku.box.lapakserver.com/application/controllers/BukuController.php on line 12
+[29-Nov-2016 11:30:59 Asia/Jakarta] PHP Fatal error:  Call to a member function checkApiKey() on null in /home/box/plbtw-buku.box.lapakserver.com/application/controllers/BukuController.php on line 12

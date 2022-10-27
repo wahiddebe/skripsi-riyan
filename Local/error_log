@@ -1,0 +1,11 @@
+[27-Nov-2016 19:34:22 Asia/Jakarta] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/box/plbtw-buku.box.lapakserver.com/Local/read_wishlist.php on line 17
+[27-Nov-2016 20:14:30 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '$query' (T_VARIABLE), expecting ',' or ';' in /home/box/plbtw-buku.box.lapakserver.com/Local/createUser.php on line 25
+[27-Nov-2016 20:18:36 Asia/Jakarta] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'box_buk'@'localhost' (using password: YES) in /home/box/plbtw-buku.box.lapakserver.com/Local/createUser.php on line 18
+[27-Nov-2016 20:18:36 Asia/Jakarta] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/box/plbtw-buku.box.lapakserver.com/Local/createUser.php on line 28
+[27-Nov-2016 20:24:45 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/box/plbtw-buku.box.lapakserver.com/Local/createUser.php on line 30
+[27-Nov-2016 20:35:11 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/box/plbtw-buku.box.lapakserver.com/Local/Login.php on line 37
+[28-Nov-2016 21:52:19 Asia/Jakarta] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/box/plbtw-buku.box.lapakserver.com/Local/add_wishlist.php on line 33
+[28-Nov-2016 22:57:57 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/box/plbtw-buku.box.lapakserver.com/Local/read_wishlist.php on line 38
+[28-Nov-2016 23:41:19 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/box/plbtw-buku.box.lapakserver.com/Local/read_wishlist.php on line 37
+[28-Nov-2016 23:43:42 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, boolean given in /home/box/plbtw-buku.box.lapakserver.com/Local/read_wishlist.php on line 37
+[29-Nov-2016 00:10:32 Asia/Jakarta] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/box/plbtw-buku.box.lapakserver.com/Local/read_transaksi.php on line 27
