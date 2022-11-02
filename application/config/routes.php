@@ -271,4 +271,5 @@ $route['Dosen/jadwalSeminarKP'] = 'SeminarKPController/ShowJadwalSeminarKP';
 
 $route['Dosen/submitPenilaian']['post'] = 'PenilaianController/insert';
 $route['Dosen/getPenilaian/(:any)'] = 'PenilaianController/getPenilaian/$1';
-$route['Dosen/showPenilaian/(:any)'] = 'PenilaianController/showPenilaian/$1';
+// $route['Dosen/showPenilaian/(:any)/(:any)/(:any)/(:any)'] = 'PenilaianController/showPenilaian/$1/$2/$3/$4';
+$route['Dosen/showPenilaian']['post'] = 'PenilaianController/showPenilaian';

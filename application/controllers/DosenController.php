@@ -328,7 +328,8 @@ class DosenController extends CI_Controller
                     $data['listseminarKP'] = $listSeminarKP;
                     $data['iddosen'] = $idDosen;
                 }
-                $listSeminar = $this->Seminar->getDataByDosen($idDosen);
+                // $listSeminar = $this->Seminar->getDataByDosen($idDosen);
+                $listSeminar = $this->Seminar->getTASeminar($idDosen);
                 if ($listSeminar != null) {
                     foreach ($listSeminar as $item) {
                         //mahasiswa
@@ -343,7 +344,8 @@ class DosenController extends CI_Controller
                             $item->Judul = $tugasAkhir->Judul;
                         }
                     }
-                    $listSidang = $this->Sidang->getDataByDosen($idDosen);
+                    // $listSidang = $this->Sidang->getDataByDosen($idDosen);
+                    $listSidang = $this->Sidang->getTASidang($idDosen);
 
                     if ($listSidang != null) {
                         $list = [];

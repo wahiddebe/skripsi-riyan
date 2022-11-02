@@ -129,8 +129,38 @@
 																	echo "	</td>";
 																	if ($event != 'Seminar') {
 																		echo "	<td>";
-																		if ($this->Penilaian->getDataBySidang($jadwal->IdSidang) != null) {
-																			echo "<a target='_blank' href='" . base_url() . "/Dosen/showPenilaian/" . $jadwal->IdSidang . "'> Penilaian.pdf</a>";
+																		$penilaian = $this->Penilaian->getDataBySidang($jadwal->IdSidang, $this->session->userdata['username']);
+																		if ($penilaian != null) {
+																			if ($penilaian->Penguji == $jadwal->DosenPenguji1) {
+																				$StatusDosen = "Penguji";
+																			}
+																			if ($penilaian->Penguji == $jadwal->DosenPenguji2) {
+																				$StatusDosen = "Penguji";
+																			}
+																			if ($penilaian->Penguji == $jadwal->Pembimbing1) {
+																				$StatusDosen = "Pembimbing";
+																			}
+																			if ($penilaian->Penguji == $jadwal->Pembimbing1) {
+																				$StatusDosen = "Pembimbing";
+																			} else {
+																				$StatusDosen = "Penguji";
+																			}
+																			// echo "<a target='_blank' href='" . base_url() . "Dosen/showPenilaian/" . $jadwal->IdSidang . "/" . $this->session->userdata['username'] . "/" . $jadwal->NIM . "/" . $jadwal->IdTA . "'> Penilaian.pdf</a>";
+															?>
+																			<form action="<?= base_url() ?>Dosen/showPenilaian" method="POST">
+																				<input type="hidden" name="NIM" value="<?php echo $jadwal->NIM; ?>">
+																				<input type="hidden" name="Judul" value="<?php echo $jadwal->Judul; ?>">
+																				<input type="hidden" name="Penguji" value="<?php echo $this->session->userdata['username']; ?>">
+																				<input type="hidden" name="Status" value="<?php echo $penilaian->Status; ?>">
+																				<input type="hidden" name="Nilai" value="<?php echo $penilaian->Nilai; ?>">
+																				<input type="hidden" name="TTD" value="<?php echo $penilaian->TTD; ?>">
+																				<input type="hidden" name="StatusDosen" value="<?php echo $StatusDosen; ?>">
+																				<input type="hidden" name="TanggalSidang" value="<?php echo $jadwal->TanggalSidang; ?>">
+																				<input type="hidden" name="Nama" value="<?php echo $jadwal->Nama; ?>">
+
+																				<button type="submit" class="btn btn-primary"> Penilaian.pdf </button>
+																			</form>
+															<?php
 																		} else {
 																			echo "-";
 																		}

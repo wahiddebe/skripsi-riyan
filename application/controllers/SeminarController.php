@@ -14,6 +14,7 @@ class SeminarController extends CI_Controller
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->load->helper('vayes_helper');
     }
 
     public function showFormDaftarSeminar()
@@ -197,7 +198,7 @@ class SeminarController extends CI_Controller
             //mkdir($path,0755,true);
             $config['upload_path'] = $path;
             $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 10000;
+            $config['max_size'] = 25000;
 
             //data Seminar
             $dataSeminar = array(
@@ -251,8 +252,11 @@ class SeminarController extends CI_Controller
                 //get username dosen
                 $idDosen = $this->session->userdata['username'];
                 $data = [];
+                $listSeminar = $this->Seminar->getTASeminar($idDosen);
+
+
                 //get data TA
-                $listSeminar = $this->Seminar->getDataByDosen($idDosen);
+                // $listSeminar = $this->Seminar->getDataByDosen($idDosen);
                 if ($listSeminar != null) {
                     foreach ($listSeminar as $item) {
                         //mahasiswa

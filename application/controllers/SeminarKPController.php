@@ -210,7 +210,7 @@ class SeminarKPController extends CI_Controller
             //mkdir($path,0755,true);
             $config['upload_path'] = $path;
             $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 10000;
+            $config['max_size'] = 25000;
 
             //data SeminarKP
             $dataSeminarKP = array(

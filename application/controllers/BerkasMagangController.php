@@ -155,7 +155,7 @@ class BerkasMagangController extends CI_Controller
         $path = './images/BerkasMagang/';
         $config['upload_path'] = $path;
         $config['allowed_types'] = 'pdf|doc|docx';
-        $config['max_size'] = 10000;
+        $config['max_size'] = 25000;
         $config['file_name'] = date("d-m-Y") . time() . $judul . ".pdf";
         $this->load->library('upload', $config);
         if ($this->upload->do_upload('file')) {

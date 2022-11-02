@@ -44,9 +44,9 @@ class Penilaian extends CI_Model
     return $query->result();
   }
 
-  public function getDataBySidang($IdSidang)
+  public function getDataBySidang($IdSidang, $dosen)
   {
-    $query = $this->db->get_where("penilaian", array("IdSidang" => $IdSidang));
+    $query = $this->db->get_where("penilaian", array("IdSidang" => $IdSidang, "Penguji" => $dosen));
     return $query->first_row();
   }
 
@@ -54,5 +54,25 @@ class Penilaian extends CI_Model
   {
     $query = $this->db->get_where("penilaian", array("IdPenilaian" => $ID));
     return $query->first_row();
+  }
+  public function getTASidang($id)
+  {
+    $this->db->select('*');
+    $this->db->from('sidang');
+    $this->db->join('tugasakhir', 'tugasakhir.idTA = sidang.idTA');
+    $this->db->where('sidang.TanggalSidang !=', "");
+    $where = "(tugasakhir.Pembimbing1='" . $id . "' OR tugasakhir.Pembimbing2='" . $id . "' OR sidang.DosenPenguji1='" . $id . "' OR sidang.DosenPenguji2='" . $id . "')";
+    $this->db->where($where);
+    $this->db->order_by('sidang.TanggalSidang', 'asc');
+    $query = $this->db->get();
+    return $query->result();
+  }
+  public function getDataByIDSidang($sidang)
+  {
+    $this->db->select('*');
+    $this->db->from('penilaian');
+    $query = $this->db->where("IdSidang =", $sidang);
+    $query = $this->db->get();
+    return $query->result();
   }
 }

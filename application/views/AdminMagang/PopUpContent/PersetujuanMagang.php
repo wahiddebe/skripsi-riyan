@@ -6,7 +6,46 @@
                     <?php
                     echo form_open('/adminMagang/submitMagang', array('id' => 'register-form', 'class' => 'register-form'));
                     ?>
-
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-input">
+                                <label>Transksrip</label>
+                                <?php
+                                echo "<a target='_blank' href='" . base_url() . $Magang->Transkip . "'>" . $Magang->NIM . "_Transksrip.pdf</a>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-input">
+                                <label>Surat Penerimaan Perusahaan</label>
+                                <?php
+                                echo "<a target='_blank' href='" . base_url() . $Magang->SuratPenerimaanPerusahaan . "'>" . $Magang->NIM . "_SuratPenerimaanPerusahaan.pdf</a>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-input">
+                                <label>Surat Rekomendasi Fakultas</label>
+                                <?php
+                                echo "<a target='_blank' href='" . base_url() . $Magang->SuratRekomendasiFakultas . "'>" . $Magang->NIM . "_SuratRekomendasiFakultas.pdf</a>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-input">
+                                <label>SPTJM</label>
+                                <?php
+                                echo "<a target='_blank' href='" . base_url() . $Magang->SPTJM . "'>" . $Magang->NIM . "_SPTJM.pdf</a>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-input">

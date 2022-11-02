@@ -16,6 +16,7 @@ class PenilaianController extends CI_Controller
     $this->load->helper(array('form', 'url'));
     $this->load->library('form_validation');
     $this->load->library('session');
+    $this->load->helper('vayes_helper');
   }
 
   public function insert()
@@ -81,24 +82,30 @@ class PenilaianController extends CI_Controller
 
   public function showPenilaian()
   {
-    $IdSidang =
-      (int)$this->uri->segment('3');
-    $sidang = $this->Sidang->getDataById($IdSidang);
-    $IdTA = $sidang->IdTA;
-    $TA = $this->TugasAkhir->getDataById($IdTA);
-    $mahasiswa = $this->Mahasiswa->getDataByID($TA->NIM);
-    $penilaian = $this->Penilaian->getDataBySidang($IdSidang);
-    $dosen = $this->Dosen->getDataBy($penilaian->Penguji);
+    // $IdSidang =
+    //   (int)$this->uri->segment('3');
+    // $IdDosen =
+    //   $this->uri->segment('4');
+    // $NIM = $this->uri->segment('5');
+    // $IdTA =
+    //   $this->uri->segment('6');
 
-    $data['NIM'] = $sidang->NIM;
-    $data['Judul'] = $TA->Judul;
-    $data['Nama'] = $mahasiswa->Nama;
+    // $sidang = $this->Sidang->getDataById($IdSidang);
+    // $TA = $this->TugasAkhir->getDataById($IdTA);
+    // $mahasiswa = $this->Mahasiswa->getDataByID($TA->NIM);
+    // $penilaian = $this->Penilaian->getDataBySidang($IdSidang, $IdDosen);
+    $dosen = $this->Dosen->getDataBy($this->input->post('Penguji'));
+
+    $data['NIM'] = $this->input->post('NIM');
+    $data['Judul'] = $this->input->post('Judul');
+    $data['Nama'] = $this->input->post('Nama');
     $data['Penguji'] = $dosen->Nama;
     $data['NIP'] = $dosen->NIP;
-    $data['Status'] = $penilaian->Status;
-    $data['Nilai'] = $penilaian->Nilai;
-    $data['TTD'] = $penilaian->TTD;
-    $tanggalsidang = $this->tgl_indo($sidang->TanggalSidang);
+    $data['Status'] = $this->input->post('Status');
+    $data['StatusDosen'] = $this->input->post('StatusDosen');
+    $data['Nilai'] = $this->input->post('Nilai');
+    $data['TTD'] = $this->input->post('TTD');
+    $tanggalsidang = $this->tgl_indo($this->input->post('TanggalSidang'));
     $data['TanggalSidang'] = $tanggalsidang;
     $this->load->library('pdf');
     $html = $this->load->view('GeneratePdfView', $data, true);

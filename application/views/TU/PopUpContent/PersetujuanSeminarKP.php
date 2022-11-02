@@ -9,6 +9,26 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-input">
+                                <label>Lembar Bimbingan</label>
+                                <?php
+                                echo "<a target='_blank' href='" . base_url() . $seminarKP->LembarBimbingan . "'>" . $seminarKP->NIM . "_LembarBimbingan.pdf</a>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-input">
+                                <label>Draft</label>
+                                <?php
+                                echo "<a target='_blank' href='" . base_url() . $seminarKP->LembarDraft . "'>" . $seminarKP->NIM . "_Draft.pdf</a>";
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-input">
                                 <label for="tamgga;">Tanggal Pelaksanaan Seminar KP</label>
                                 <?php
                                 echo "<input required type='date' name='tanggal' id='tanggal'/>";

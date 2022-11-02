@@ -16,6 +16,7 @@ class SidangController extends CI_Controller
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->load->helper('vayes_helper');
     }
 
     public function showFormDaftarSidang()
@@ -249,7 +250,7 @@ class SidangController extends CI_Controller
             //mkdir($path,0755,true);
             $config['upload_path'] = $path;
             $config['allowed_types'] = 'pdf';
-            $config['max_size'] = 2000;
+            $config['max_size'] = 25000;
 
             //data Sidang
             $dataSidang = array(
@@ -308,7 +309,7 @@ class SidangController extends CI_Controller
             //data TA
             $tugasAkhir = $this->TugasAkhir->getDataByNIM($NIM);
             if ($tugasAkhir != null) {
-                $tugasAkhir->Judul = $this->input->post('Judul');
+                $tugasAkhir->Judul = $this->input->post('judul');
             }
 
             //simpan data Sidang dan TA
@@ -331,9 +332,10 @@ class SidangController extends CI_Controller
                 //get username dosen
                 $idDosen = $this->session->userdata['username'];
                 $data = [];
-                //get data TA
-                $listSidang = $this->Sidang->getDataByDosen($idDosen);
 
+                //get data TA
+                // $listSidang = $this->Sidang->getDataByDosen($idDosen);
+                $listSidang = $this->Sidang->getTASidang($idDosen);
                 if ($listSidang != null) {
                     $list = [];
                     foreach ($listSidang as $item) {

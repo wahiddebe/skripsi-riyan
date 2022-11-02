@@ -20,7 +20,7 @@
         <br>
         <br>
         <br>
-        <p>Nama Penguji : <?= $Penguji ?> </p>
+        <p>Nama <?= $StatusDosen ?> : <?= $Penguji ?> </p>
         <p>Nama Mahasiswa : <?= $Nama ?> </p>
         <p>NIM : <?= $NIM ?> </p>
         <p>Judul : <?= $Judul ?> </p>
@@ -38,7 +38,6 @@
       </div>
       <div class="col-xs-5">
         <p>Semarang, <?= $TanggalSidang ?></p>
-        <p><?= $Penguji ?></p>
         <?php
         $TTD = ltrim($TTD, './');
         ?>

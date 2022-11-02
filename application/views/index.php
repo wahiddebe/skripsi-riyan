@@ -172,6 +172,93 @@
 									<div class="row">
 										<div class="col">
 											<div class="section_title text-center">
+												<h1>Informasi Seminar KP</h1>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col">
+											<?php
+											if (isset($seminarKP)) {
+											?>
+												<table>
+													<tbody>
+														<tr>
+															<th>Tanggal Seminar</th>
+															<td><?php
+																	if ($seminarKP->TanggalSeminarKP != null) {
+																		echo $seminarKP->TanggalSeminarKP;
+																	} else {
+																		echo "-";
+																	}
+																	?></td>
+														</tr>
+														<tr>
+															<th>Jam Seminar</th>
+															<td><?php
+																	if ($seminarKP->Jam != null) {
+																		echo $seminarKP->Jam;
+																	} else {
+																		echo "-";
+																	}
+																	?></td>
+														</tr>
+														<tr>
+															<th>Lokasi Seminar</th>
+															<td><?php
+																	if ($seminarKP->Lokasi != null) {
+																		echo $seminarKP->Lokasi;
+																	} else {
+																		echo "-";
+																	}
+																	?></td>
+														</tr>
+														<tr>
+															<th>Tanggal Daftar</th>
+															<td><?php echo $seminarKP->TanggalDaftar ?></td>
+														</tr>
+														<tr>
+															<th>Dosen Pembimbing</th>
+															<td><?php
+																	if (isset($dosenPengujikp[0])) {
+																		echo $dosenPengujikp[0]->Nama;
+																	} else {
+																		echo  "-";
+																	}  ?>
+															</td>
+														</tr>
+														<tr>
+															<th>Lembar Bimbingan</th>
+															<td><?php
+																	if ($seminarKP->LembarBimbingan != null) {
+																		echo "<a target='_blank' href='" . $seminarKP->LembarBimbingan . "'>" . $mahasiswa->NIM . "_LembarBimbingan.pdf" . "</a>";
+																	} else echo "-";
+																	?></td>
+														</tr>
+														<tr>
+															<th>Draft</th>
+															<td><?php
+																	if ($seminarKP->LembarDraft != null) {
+																		echo "<a target='_blank' href='" . $seminarKP->LembarDraft . "'>" . $mahasiswa->NIM . "_Draft.pdf" . "</a>";
+																	} else echo "-";
+																	?></td>
+														</tr>
+													</tbody>
+												</table>
+											<?php
+											} else {
+											?>
+												<div class="section_title text-center">
+													<h2>Data Seminar KP Belum Ada</h2>
+												</div>
+											<?php } ?>
+										</div>
+									</div>
+								</div>
+								<div class="register_content ">
+									<div class="row">
+										<div class="col">
+											<div class="section_title text-center">
 												<h1>Informasi Magang</h1>
 											</div>
 										</div>
