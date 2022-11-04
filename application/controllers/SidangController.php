@@ -71,6 +71,29 @@ class SidangController extends CI_Controller
                     $this->load->view('TU/TUView', $data);
                 }
             }
+            if ($this->session->userdata['role'] == 'admin') {
+                $status = $this->uri->segment('4');
+                $data = [];
+
+                //jika ada notifikasi
+                $approvalData = $this->session->flashdata('data');
+                if ($approvalData != null) {
+                    $data['success'] = $approvalData['success'];
+                    $data['NIM'] = $approvalData['NIM'];
+                    $data['event'] = $approvalData['event'];
+                }
+
+                //cek status data yg mau diambil
+                if ($status ==  'approve') {
+                    $Sidangapprove = $this->Sidang->getAllApproved();
+                    $data['list'] = $Sidangapprove;
+                    $this->load->view('TU/TUSidangTAView', $data);
+                } else {
+                    $SidangNonApprove = $this->Sidang > getAllNonApproved();
+                    $data['list'] = $SidangNonApprove;
+                    $this->load->view('TU/TUView', $data);
+                }
+            }
         }
     }
 
@@ -100,6 +123,29 @@ class SidangController extends CI_Controller
                 //send data
                 $this->load->view('TU/TUSidangView', $data);
             }
+            if ($this->session->userdata['role'] == 'admin') {
+                $Sidang = $this->Sidang->getAllDataNonApprove();
+                $data = [];
+                if ($Sidang != null) {
+                    foreach ($Sidang as $item) {
+                        $tugasAkhir = $this->TugasAkhir->getDataByID($item->IdTA);
+                        if ($tugasAkhir != null) {
+                            $item->Judul = $tugasAkhir->Judul;
+                        }
+                    }
+                    $data['list'] = $Sidang;
+                }
+                //jika ada notifikasi
+                $approvalData = $this->session->flashdata('data');
+                if ($approvalData != null) {
+                    $data['success'] = $approvalData['success'];
+                    $data['NIM'] = $approvalData['NIM'];
+                    $data['event'] = $approvalData['event'];
+                }
+
+                //send data
+                $this->load->view('TU/TUSidangView', $data);
+            }
         }
     }
 
@@ -107,6 +153,22 @@ class SidangController extends CI_Controller
     {
         if (isset($this->session->userdata['logged_in'])) {
             if ($this->session->userdata['username'] == "TU") {
+                $id = (int)$this->uri->segment('3');
+                $status = $this->uri->segment('4');
+                $data["sidang"] = $this->Sidang->getDataByID($id);
+                $data["isSuccess"] = false;
+
+                $htmlText = '';
+                if ($status == 'ubah') {
+                    $data['dosen'] = $this->Dosen->GetAllData();
+                    $htmlText = $this->load->view('TU/PopUpContent/KelolaSidang', $data, true);
+                } else {
+                    $htmlText = $this->load->view('TU/PopUpContent/PersetujuanSidang', $data, true);
+                }
+
+                echo $htmlText;
+            }
+            if ($this->session->userdata['username'] == "admin") {
                 $id = (int)$this->uri->segment('3');
                 $status = $this->uri->segment('4');
                 $data["sidang"] = $this->Sidang->getDataByID($id);
@@ -193,11 +255,17 @@ class SidangController extends CI_Controller
                 $this->session->set_flashdata('data', $data);
 
                 if ($status == 'tambah') {
-
-                    redirect('TU/persetujuanSidang');
+                    if ($this->session->userdata['role'] == 'admin') {
+                        redirect('admin/persetujuan/persetujuanSidang');
+                    } else {
+                        redirect('TU/persetujuanSidang');
+                    }
                 } else {
-
-                    redirect('TU/Sidang/approve');
+                    if ($this->session->userdata['role'] == 'admin') {
+                        redirect('admin/persetujuan/Sidang/approve');
+                    } else {
+                        redirect('TU/Sidang/approve');
+                    }
                 }
             }
         }
@@ -207,6 +275,17 @@ class SidangController extends CI_Controller
     {
         if (isset($this->session->userdata['logged_in'])) {
             if ($this->session->userdata['role'] == 'TU') {
+                $id = (int)$this->uri->segment('3');
+                $nama = $this->uri->segment('4');
+                $data['event'] = 'menghapus';
+                $data['tabel'] = 'Sidang';
+                $data['kolom'] = 'NIM';
+                $data['nama'] = str_replace('%20', ' ', $nama);
+                $data['id'] = $id;
+
+                $this->load->view('Admin/PopUpContent/Hapus', $data);
+            }
+            if ($this->session->userdata['role'] == 'admin') {
                 $id = (int)$this->uri->segment('3');
                 $nama = $this->uri->segment('4');
                 $data['event'] = 'menghapus';
@@ -234,8 +313,11 @@ class SidangController extends CI_Controller
                 $data['event'] = "menghapus";
                 $data['NIM'] = $sidang->NIM;
                 $this->session->set_flashdata('data', $data);
-
-                redirect('TU/Sidang/approve');
+                if ($this->session->userdata['role'] == 'admin') {
+                    redirect('admin/persetujuan/Sidang/approve');
+                } else {
+                    redirect('TU/Sidang/approve');
+                }
             }
         }
     }

@@ -235,26 +235,49 @@ $route['TU/submitSidang/(:any)']['post'] = 'SidangController/submitSidang/$1';
 $route['TU/hapusSidang/(:any)/(:any)'] = 'SidangController/showDataHapus/$1/$2';
 $route['TU/hapusSidang']['post'] = 'SidangController/hapusSidang';
 
+//url untuk Sidang
+$route['mahasiswa/FormSidang']['get']  = 'SidangController/showFormDaftarSidang';
+$route['mahasiswa/FormSidang']['post'] = 'SidangController/saveSidang';
+$route['admin/persetujuan/Sidang/(:any)'] = 'SidangController/showListSidang/$1';
+$route['admin/persetujuan/persetujuanSidang'] = 'SidangController/getListSidangNonApprove';
+// $route['admin/persetujuan/getSidang/(:any)/(:any)'] = 'SidangController/getSidang/$1/$2';
+// $route['admin/persetujuan/submitSidang/(:any)']['post'] = 'SidangController/submitSidang/$1';
+// $route['admin/persetujuan/hapusSidang/(:any)/(:any)'] = 'SidangController/showDataHapus/$1/$2';
+$route['admin/persetujuan/hapusSidang']['post'] = 'SidangController/hapusSidang';
+
 //url untuk Seminar
 $route['mahasiswa/FormSeminar']['get']  = 'SeminarController/showFormDaftarSeminar';
 $route['mahasiswa/FormSeminar']['post'] = 'SeminarController/saveSeminar';
 $route['TU/Seminar/(:any)'] = 'SeminarController/showListSeminar/$1';
-$route['TU'] = 'SeminarController/getListSeminarNonApprove';
-$route['TU/getSeminar/(:any)/(:any)'] = 'SeminarController/getSeminar/$1/$2';
-$route['TU/submitSeminar/(:any)']['post'] = 'SeminarController/submitSeminar/$1';
+$route['TU'] = 'SeminarController/getListSeminarNonApprove'; //-
+$route['TU/getSeminar/(:any)/(:any)'] = 'SeminarController/getSeminar/$1/$2'; //-
+$route['TU/submitSeminar/(:any)']['post'] = 'SeminarController/submitSeminar/$1'; //-
 $route['TU/hapusSeminar/(:any)/(:any)'] = 'SeminarController/showDataHapus/$1/$2';
 $route['TU/hapusSeminar']['post'] = 'SeminarController/hapusSeminar';
+
+//url untuk Seminar
+$route['mahasiswa/FormSeminar']['get']  = 'SeminarController/showFormDaftarSeminar';
+$route['mahasiswa/FormSeminar']['post'] = 'SeminarController/saveSeminar';
+$route['admin/persetujuan/Seminar/(:any)'] = 'SeminarController/showListSeminar/$1';
+$route['admin/persetujuan'] = 'SeminarController/getListSeminarNonApprove';
+$route['admin/persetujuan/hapusSeminar']['post'] = 'SeminarController/hapusSeminar';
+
 
 //url untuk Seminar KP
 $route['mahasiswa/FormSeminarKP']['get']  = 'SeminarKPController/showFormDaftarSeminarKP';
 $route['mahasiswa/FormSeminarKP']['post'] = 'SeminarKPController/saveSeminarKP';
-$route['TU/SeminarKP/(:any)'] = 'SeminarKPController/showListSeminarKP/$1';
-$route['TU/KP'] = 'SeminarKPController/getListSeminarKPNonApprove';
-$route['TU/getSeminarKP/(:any)/(:any)'] = 'SeminarKPController/getSeminarKP/$1/$2';
-$route['TU/submitSeminarKP/(:any)']['post'] = 'SeminarKPController/submitSeminarKP/$1';
-$route['TU/hapusSeminarKP/(:any)/(:any)'] = 'SeminarKPController/showDataHapus/$1/$2';
-$route['TU/hapusSeminarKP']['post'] = 'SeminarKPController/hapusSeminarKP';
-
+$route['TU/SeminarKP/(:any)'] = 'SeminarKPController/showListSeminarKP/$1'; //-
+$route['TU/KP'] = 'SeminarKPController/getListSeminarKPNonApprove'; //-
+$route['TU/getSeminarKP/(:any)/(:any)'] = 'SeminarKPController/getSeminarKP/$1/$2'; //-
+$route['TU/submitSeminarKP/(:any)']['post'] = 'SeminarKPController/submitSeminarKP/$1'; //-
+$route['TU/hapusSeminarKP/(:any)/(:any)'] = 'SeminarKPController/showDataHapus/$1/$2'; //-
+$route['TU/hapusSeminarKP']['post'] = 'SeminarKPController/hapusSeminarKP'; //-
+//url untuk Seminar KP
+$route['mahasiswa/FormSeminarKP']['get']  = 'SeminarKPController/showFormDaftarSeminarKP';
+$route['mahasiswa/FormSeminarKP']['post'] = 'SeminarKPController/saveSeminarKP';
+$route['adminKP/persetujuan/SeminarKP/(:any)'] = 'SeminarKPController/showListSeminarKP/$1';
+$route['adminKP/persetujuan/KP'] = 'SeminarKPController/getListSeminarKPNonApprove';
+$route['adminKP/persetujuan/hapusSeminarKP']['post'] = 'SeminarKPController/hapusSeminarKP';
 //url untuk excel
 $route['admin/import']['import'] = 'Excel_importController/import';
 

@@ -66,6 +66,29 @@ class SeminarKPController extends CI_Controller
                     $this->load->view('TU/TUView', $data);
                 }
             }
+            if ($this->session->userdata['role'] == 'adminKP') {
+                $status = $this->uri->segment('4');
+                $data = [];
+
+                //jika ada notifikasi
+                $approvalData = $this->session->flashdata('data');
+                if ($approvalData != null) {
+                    $data['success'] = $approvalData['success'];
+                    $data['NIM'] = $approvalData['NIM'];
+                    $data['event'] = $approvalData['event'];
+                }
+
+                //cek status data yg mau diambil
+                if ($status ==  'approve') {
+                    $SeminarKPapprove = $this->SeminarKP->getAllApproved();
+                    $data['list'] = $SeminarKPapprove;
+                    $this->load->view('TU/TUSeminarKPView', $data);
+                } else {
+                    $SeminarKPNonApprove = $this->SeminarKP > getAllNonApprove();
+                    $data['list'] = $SeminarKPNonApprove;
+                    $this->load->view('TU/TUView', $data);
+                }
+            }
         }
     }
 
@@ -73,6 +96,23 @@ class SeminarKPController extends CI_Controller
     {
         if (isset($this->session->userdata['logged_in'])) {
             if ($this->session->userdata['role'] == 'TU') {
+                $seminarKP = $this->SeminarKP->getAllDataNonApprove();
+                $data = [];
+                if ($seminarKP != null) {
+                    $data['list'] = $seminarKP;
+                }
+                //jika ada notifikasi
+                $approvalData = $this->session->flashdata('data');
+                if ($approvalData != null) {
+                    $data['success'] = $approvalData['success'];
+                    $data['NIM'] = $approvalData['NIM'];
+                    $data['event'] = $approvalData['event'];
+                }
+
+                //send data
+                $this->load->view('TU/TUKPView', $data);
+            }
+            if ($this->session->userdata['role'] == 'adminKP') {
                 $seminarKP = $this->SeminarKP->getAllDataNonApprove();
                 $data = [];
                 if ($seminarKP != null) {
@@ -106,6 +146,17 @@ class SeminarKPController extends CI_Controller
 
                 $this->load->view('Admin/PopUpContent/Hapus', $data);
             }
+            if ($this->session->userdata['role'] == 'adminKP') {
+                $id = (int)$this->uri->segment('3');
+                $nama = $this->uri->segment('4');
+                $data['event'] = 'menghapus';
+                $data['tabel'] = 'SeminarKP';
+                $data['kolom'] = 'NIM';
+                $data['nama'] = str_replace('%20', ' ', $nama);
+                $data['id'] = $id;
+
+                $this->load->view('Admin/PopUpContent/Hapus', $data);
+            }
         }
     }
 
@@ -123,8 +174,11 @@ class SeminarKPController extends CI_Controller
                 $data['event'] = "menghapus";
                 $data['NIM'] = $SeminarKP->NIM;
                 $this->session->set_flashdata('data', $data);
-
-                redirect('TU/SeminarKP/approve');
+                if ($this->session->userdata['username'] == "adminKP") {
+                    redirect('adminKP/persetujuan/SeminarKP/approve');
+                } else {
+                    redirect('TU/SeminarKP/approve');
+                }
             }
         }
     }
@@ -133,6 +187,21 @@ class SeminarKPController extends CI_Controller
     {
         if (isset($this->session->userdata['logged_in'])) {
             if ($this->session->userdata['username'] == "TU") {
+                $id = (int)$this->uri->segment('3');
+                $data["seminarKP"] = $this->SeminarKP->getDataByID($id);
+                $kp = $this->KP->getDataByID($data["seminarKP"]->IdKP);
+                $data["dosen"] = $this->Dosen->getDataBy($kp->DosenPembimbing);
+                $data["isSuccess"] = false;
+                $data['test'] = $this->uri->segment('4');
+                if ($this->uri->segment('4') == 'ubah') {
+                    $htmlText = $this->load->view('TU/PopUpContent/KelolaSeminarKP', $data, true);
+                } else {
+                    $htmlText = $this->load->view('TU/PopUpContent/PersetujuanSeminarKP', $data, true);
+                }
+
+                echo $htmlText;
+            }
+            if ($this->session->userdata['username'] == "adminKP") {
                 $id = (int)$this->uri->segment('3');
                 $data["seminarKP"] = $this->SeminarKP->getDataByID($id);
                 $kp = $this->KP->getDataByID($data["seminarKP"]->IdKP);
@@ -191,9 +260,17 @@ class SeminarKPController extends CI_Controller
                 $this->session->set_flashdata('data', $data);
 
                 if ($this->uri->segment('3') == 'ubah') {
-                    redirect('TU/SeminarKP/approve');
+                    if ($this->session->userdata['username'] == "adminKP") {
+                        redirect('adminKP/persetujuan/SeminarKP/approve');
+                    } else {
+                        redirect('TU/SeminarKP/approve');
+                    }
                 } else {
-                    redirect('TU/KP');
+                    if ($this->session->userdata['username'] == "adminKP") {
+                        redirect('adminKP/persetujuan/KP');
+                    } else {
+                        redirect('TU/KP');
+                    }
                 }
             }
         }

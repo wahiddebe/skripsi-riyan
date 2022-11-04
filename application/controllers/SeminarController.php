@@ -67,6 +67,29 @@ class SeminarController extends CI_Controller
                     $this->load->view('TU/TUView', $data);
                 }
             }
+            if ($this->session->userdata['role'] == 'admin') {
+                $status = $this->uri->segment('4');
+                $data = [];
+
+                //jika ada notifikasi
+                $approvalData = $this->session->flashdata('data');
+                if ($approvalData != null) {
+                    $data['success'] = $approvalData['success'];
+                    $data['NIM'] = $approvalData['NIM'];
+                    $data['event'] = $approvalData['event'];
+                }
+
+                //cek status data yg mau diambil
+                if ($status ==  'approve') {
+                    $Seminarapprove = $this->Seminar->getAllApproved();
+                    $data['list'] = $Seminarapprove;
+                    $this->load->view('TU/TUSeminarView', $data);
+                } else {
+                    $SeminarNonApprove = $this->Seminar > getAllNonApprove();
+                    $data['list'] = $SeminarNonApprove;
+                    $this->load->view('TU/TUView', $data);
+                }
+            }
         }
     }
 
@@ -74,6 +97,23 @@ class SeminarController extends CI_Controller
     {
         if (isset($this->session->userdata['logged_in'])) {
             if ($this->session->userdata['role'] == 'TU') {
+                $seminar = $this->Seminar->getAllDataNonApprove();
+                $data = [];
+                if ($seminar != null) {
+                    $data['list'] = $seminar;
+                }
+                //jika ada notifikasi
+                $approvalData = $this->session->flashdata('data');
+                if ($approvalData != null) {
+                    $data['success'] = $approvalData['success'];
+                    $data['NIM'] = $approvalData['NIM'];
+                    $data['event'] = $approvalData['event'];
+                }
+
+                //send data
+                $this->load->view('TU/TUView', $data);
+            }
+            if ($this->session->userdata['role'] == 'admin') {
                 $seminar = $this->Seminar->getAllDataNonApprove();
                 $data = [];
                 if ($seminar != null) {
@@ -107,6 +147,17 @@ class SeminarController extends CI_Controller
 
                 $this->load->view('Admin/PopUpContent/Hapus', $data);
             }
+            if ($this->session->userdata['role'] == 'admin') {
+                $id = (int)$this->uri->segment('3');
+                $nama = $this->uri->segment('4');
+                $data['event'] = 'menghapus';
+                $data['tabel'] = 'Seminar';
+                $data['kolom'] = 'NIM';
+                $data['nama'] = str_replace('%20', ' ', $nama);
+                $data['id'] = $id;
+
+                $this->load->view('Admin/PopUpContent/Hapus', $data);
+            }
         }
     }
 
@@ -125,7 +176,11 @@ class SeminarController extends CI_Controller
                 $data['NIM'] = $Seminar->NIM;
                 $this->session->set_flashdata('data', $data);
 
-                redirect('TU/Seminar/approve');
+                if ($this->session->userdata['role'] == 'admin') {
+                    redirect('admin/persetujuan/Seminar/approve');
+                } else {
+                    redirect('TU/Seminar/approve');
+                }
             }
         }
     }
@@ -134,6 +189,19 @@ class SeminarController extends CI_Controller
     {
         if (isset($this->session->userdata['logged_in'])) {
             if ($this->session->userdata['username'] == "TU") {
+                $id = (int)$this->uri->segment('3');
+                $data["seminar"] = $this->Seminar->getDataByID($id);
+                $data["dosen"] = $dosen = $this->Dosen->getAllData();
+                $data["isSuccess"] = false;
+                if ($this->uri->segment('4') == 'ubah') {
+                    $htmlText = $this->load->view('TU/PopUpContent/KelolaSeminar', $data, true);
+                } else {
+                    $htmlText = $this->load->view('TU/PopUpContent/PersetujuanSeminar', $data, true);
+                }
+
+                echo $htmlText;
+            }
+            if ($this->session->userdata['username'] == "admin") {
                 $id = (int)$this->uri->segment('3');
                 $data["seminar"] = $this->Seminar->getDataByID($id);
                 $data["dosen"] = $dosen = $this->Dosen->getAllData();
@@ -179,9 +247,17 @@ class SeminarController extends CI_Controller
                 $this->session->set_flashdata('data', $data);
 
                 if ($this->uri->segment('3') == 'ubah') {
-                    redirect('TU/Seminar/approve');
+                    if ($this->session->userdata['role'] == 'admin') {
+                        redirect('admin/persetujuan/Seminar/approve');
+                    } else {
+                        redirect('TU/Seminar/approve');
+                    }
                 } else {
-                    redirect('TU');
+                    if ($this->session->userdata['role'] == 'admin') {
+                        redirect('admin/persetujuan');
+                    } else {
+                        redirect('TU');
+                    }
                 }
             }
         }

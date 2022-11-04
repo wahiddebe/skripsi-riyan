@@ -93,11 +93,20 @@
           } else if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'admin') {
             echo "<li class='main_nav_item'><a href='" . base_url() . "admin/tugasAkhir/nonApprove" . "'>Beranda</a></li>";
             echo "<li class='main_nav_item'>";
+            echo "<a href='#'>Persetujuan</a>";
+            echo "<div class='main_nav_sub'>";
+            echo "<a href='" . base_url() . "admin/persetujuan" . "'>Persetujuan Seminar TA</a>";
+            echo "<a href='" . base_url() . "admin/persetujuan/persetujuanSidang" . "'>Persetujuan Sidang TA</a>";
+            echo "</div>";
+            echo "</li>";
+            echo "<li class='main_nav_item'>";
             echo "<a href='#'>Kelola Data</a>";
             echo "<div class='main_nav_sub'>";
             echo "<a href='" . base_url() . "admin/mahasiswa" . "'>Mahasiswa</a>";
             echo "<a href='" . base_url() . "admin/dosen" . "'>Dosen</a>";
             echo "<a href='" . base_url() . "admin/tugasAkhir/approve" . "'>Tugas Akhir</a>";
+            echo "<a href='" . base_url() . "admin/persetujuan/Seminar/approve" . "'>Seminar TA</a>";
+            echo "<a href='" . base_url() . "admin/persetujuan/Sidang/approve" . "'>Sidang TA</a>";
             echo "<a href='" . base_url() . "admin/SOP" . "'>SOP</a>";
             echo "<a href='" . base_url() . "admin/InstruksiKerja" . "'>Instruksi Kerja</a>";
             echo "<a href='" . base_url() . "admin/BerkasTA" . "'>Dokumen TA</a>";
@@ -108,12 +117,19 @@
           } else if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'adminKP') {
             echo "<li class='main_nav_item'><a href='" . base_url() . "adminKP/KP/nonApprove" . "'>Beranda</a></li>";
             echo "<li class='main_nav_item'>";
+            echo "<a href='#'>Persetujuan</a>";
+            echo "<div class='main_nav_sub'>";
+            echo "<a href='" . base_url() . "adminKP/persetujuan/KP" . "'>Persetujuan Seminar KP</a>";
+            echo "</div>";
+            echo "</li>";
+            echo "<li class='main_nav_item'>";
             echo "<a href='#'>Kelola Data</a>";
             echo "<div class='main_nav_sub'>";
             echo "<a href='" . base_url() . "adminKP/mahasiswa" . "'>Mahasiswa</a>";
             echo "<a href='" . base_url() . "adminKP/dosen" . "'>Dosen</a>";
             echo "<a href='" . base_url() . "adminKP/KP/approve" . "'>KP</a>";
             echo "<a href='" . base_url() . "adminKP/SuratKP/approve" . "'>Surat KP</a>";
+            echo "<a href='" . base_url() . "adminKP/persetujuan/SeminarKP/approve" . "'>Seminar KP</a>";
             echo "<a href='" . base_url() . "adminKP/SOP" . "'>SOP</a>";
             echo "<a href='" . base_url() . "adminKP/InstruksiKerja" . "'>Instruksi Kerja</a>";
             echo "<a href='" . base_url() . "adminKP/BerkasKP" . "'>Dokumen KP</a>";
